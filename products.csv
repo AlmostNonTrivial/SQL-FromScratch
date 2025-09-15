@@ -1,0 +1,101 @@
+product_id,title,category,price,stock,brand
+1,Essence Mascara Lash Princess,beauty,9,99,Essence
+2,Eyeshadow Palette with Mirror,beauty,19,34,Glamour Beauty
+3,Powder Canister,beauty,14,89,Velvet Touch
+4,Red Lipstick,beauty,12,91,Chic Cosmetics
+5,Red Nail Polish,beauty,8,79,Nail Couture
+6,Calvin Klein CK One,fragrances,49,29,Calvin Klein
+7,Chanel Coco Noir Eau De,fragrances,129,58,Chanel
+8,Dior Jadore,fragrances,89,98,Dior
+9,Dolce Shine Eau de,fragrances,69,4,Dolce & Gabbana
+10,Gucci Bloom Eau de,fragrances,79,91,Gucci
+11,Annibale Colombo Bed,furniture,1899,88,Annibale Colombo
+12,Annibale Colombo Sofa,furniture,2499,60,Annibale Colombo
+13,Bedside Table African Cherry,furniture,299,64,Furniture Co.
+14,Knoll Saarinen Executive Confere,furniture,499,26,Knoll
+15,Wooden Bathroom Sink With Mirror,furniture,799,7,Bath Trends
+16,Apple,groceries,1,8,Generic
+17,Beef Steak,groceries,12,86,Generic
+18,Cat Food,groceries,8,46,Generic
+19,Chicken Meat,groceries,9,97,Generic
+20,Cooking Oil,groceries,4,10,Generic
+21,Cucumber,groceries,1,84,Generic
+22,Dog Food,groceries,10,71,Generic
+23,Eggs,groceries,2,9,Generic
+24,Fish Steak,groceries,14,74,Generic
+25,Green Bell Pepper,groceries,1,33,Generic
+26,Green Chili Pepper,groceries,0,3,Generic
+27,Honey Jar,groceries,6,34,Generic
+28,Ice Cream,groceries,5,27,Generic
+29,Juice,groceries,3,50,Generic
+30,Kiwi,groceries,2,99,Generic
+31,Lemon,groceries,0,31,Generic
+32,Milk,groceries,3,27,Generic
+33,Mulberry,groceries,4,99,Generic
+34,Nescafe Coffee,groceries,7,57,Generic
+35,Potatoes,groceries,2,13,Generic
+36,Protein Powder,groceries,19,80,Generic
+37,Red Onions,groceries,1,82,Generic
+38,Rice,groceries,5,59,Generic
+39,Soft Drinks,groceries,1,53,Generic
+40,Strawberry,groceries,3,46,Generic
+41,Tissue Paper Box,groceries,2,86,Generic
+42,Water,groceries,0,53,Generic
+43,Decoration Swing,home-decoration,59,47,Generic
+44,Family Tree Photo Frame,home-decoration,29,77,Generic
+45,House Showpiece Plant,home-decoration,39,28,Generic
+46,Plant Pot,home-decoration,14,59,Generic
+47,Table Lamp,home-decoration,49,9,Generic
+48,Bamboo Spatula,kitchen-accessor,7,37,Generic
+49,Black Aluminium Cup,kitchen-accessor,5,75,Generic
+50,Black Whisk,kitchen-accessor,9,73,Generic
+51,Boxed Blender,kitchen-accessor,39,9,Generic
+52,Carbon Steel Wok,kitchen-accessor,29,40,Generic
+53,Chopping Board,kitchen-accessor,12,14,Generic
+54,Citrus Squeezer Yellow,kitchen-accessor,8,22,Generic
+55,Egg Slicer,kitchen-accessor,6,40,Generic
+56,Electric Stove,kitchen-accessor,49,21,Generic
+57,Fine Mesh Strainer,kitchen-accessor,9,85,Generic
+58,Fork,kitchen-accessor,3,7,Generic
+59,Glass,kitchen-accessor,4,46,Generic
+60,Grater Black,kitchen-accessor,10,84,Generic
+61,Hand Blender,kitchen-accessor,34,84,Generic
+62,Ice Cube Tray,kitchen-accessor,5,13,Generic
+63,Kitchen Sieve,kitchen-accessor,7,68,Generic
+64,Knife,kitchen-accessor,14,7,Generic
+65,Lunch Box,kitchen-accessor,12,94,Generic
+66,Microwave Oven,kitchen-accessor,89,59,Generic
+67,Mug Tree Stand,kitchen-accessor,15,88,Generic
+68,Pan,kitchen-accessor,24,90,Generic
+69,Plate,kitchen-accessor,3,66,Generic
+70,Red Tongs,kitchen-accessor,6,82,Generic
+71,Silver Pot With Glass Cap,kitchen-accessor,39,40,Generic
+72,Slotted Turner,kitchen-accessor,8,88,Generic
+73,Spice Rack,kitchen-accessor,19,79,Generic
+74,Spoon,kitchen-accessor,4,59,Generic
+75,Tray,kitchen-accessor,16,71,Generic
+76,Wooden Rolling Pin,kitchen-accessor,11,80,Generic
+77,Yellow Peeler,kitchen-accessor,5,35,Generic
+78,Apple MacBook Pro 14 Inch Space ,laptops,1999,24,Apple
+79,Asus Zenbook Pro Dual Screen Lap,laptops,1799,45,Asus
+80,Huawei Matebook X Pro,laptops,1399,75,Huawei
+81,Lenovo Yoga 920,laptops,1099,40,Lenovo
+82,New DELL XPS 13 9300 Laptop,laptops,1499,74,Dell
+83,Blue & Black Check Shirt,mens-shirts,29,38,Fashion Trends
+84,Gigabyte Aorus Men Tshirt,mens-shirts,24,90,Gigabyte
+85,Man Plaid Shirt,mens-shirts,34,82,Classic Wear
+86,Man Short Sleeve Shirt,mens-shirts,19,2,Casual Comfort
+87,Men Check Shirt,mens-shirts,27,95,Urban Chic
+88,Nike Air Jordan 1 Red And Black,mens-shoes,149,7,Nike
+89,Nike Baseball Cleats,mens-shoes,79,12,Nike
+90,Puma Future Rider Trainers,mens-shoes,89,90,Puma
+91,Sports Sneakers Off White & Red,mens-shoes,119,17,Off White
+92,Sports Sneakers Off White Red,mens-shoes,109,62,Off White
+93,Brown Leather Belt Watch,mens-watches,89,32,Fashion Timepiec
+94,Longines Master Collection,mens-watches,1499,100,Longines
+95,Rolex Cellini Date Black Dial,mens-watches,8999,40,Rolex
+96,Rolex Cellini Moonphase,mens-watches,12999,36,Rolex
+97,Rolex Datejust,mens-watches,10999,86,Rolex
+98,Rolex Submariner Watch,mens-watches,13999,55,Rolex
+99,Amazon Echo Plus,mobile-accessori,99,61,Amazon
+100,Apple Airpods,mobile-accessori,129,67,Apple
