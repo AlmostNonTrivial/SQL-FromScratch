@@ -20,21 +20,21 @@ cmake ..
 make
 ```
 
-# Default database (relational_test.db)
+### Default database (relational_test.db)
 ./SqlFromScratch
 
-# Custom database file
+### Custom database file
 ./SqlFromScratch mydata.db
 
-# Run tests
+### Run tests
 ./SqlFromScratch test
 
-# Show help
+### Show help
 ./SqlFromScratch -h
 
 
 ## Architecture overview
-
+```bash
 ┌─────────────────────────────────────────────────────────────┐
 │                        SQL Query                            │
 │                  "SELECT * FROM users"                      │
@@ -239,3 +239,4 @@ make
 │                                                                              │
 │ In-order traversal: Alice→Bob→Charlie→David                                  │
 └──────────────────────────────────────────────────────────────────────────────┘
+```
