@@ -1,5 +1,5 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * Read Execute Print Loop
  */
@@ -21,7 +21,6 @@
 #include <chrono>
 #include <cstdio>
 #include <cstring>
-#include <initializer_list>
 
 static array<int, query_arena> result_column_widths;
 static const char *current_database_path = nullptr;
@@ -42,22 +41,21 @@ static int get_column_width(data_type type) {
   case TYPE_F64:
     return 12;
   case TYPE_CHAR8:
-    return 10;
+    return 8;
   case TYPE_CHAR16:
-    return 18;
+    return 16;
   case TYPE_CHAR32:
-    return 35;
+    return 32;
   case TYPE_CHAR64:
-    return 35;
+    return 64;
   case TYPE_CHAR128:
-    return 40;
+    return 128;
   case TYPE_CHAR256:
-    return 50;
+    return 256;
   default:
     return 15;
   }
 }
-
 static void print_select_headers(select_stmt *select_stmt) {
   relation *table = catalog.get(select_stmt->table_name);
   if (!table) {
@@ -106,38 +104,11 @@ static void print_select_headers(select_stmt *select_stmt) {
   }
 }
 
-void setup_result_formatting(std::initializer_list<attribute> columns) {
-  for (uint32_t i = 0; i < columns.size(); i++) {
-    const attribute *attr = columns.begin() + i;
-    result_column_widths.push(get_column_width(attr->type));
-  }
-}
 
-void setup_result_formatting(select_stmt *select_stmt) {
-  result_column_widths.clear();
-
-  relation *table = catalog.get(select_stmt->table_name);
-  if (!table) {
-    return;
-  }
-
-  if (select_stmt->is_star) {
-    for (uint32_t i = 0; i < table->columns.size(); i++) {
-      result_column_widths.push(get_column_width(table->columns[i].type));
-    }
-  } else {
-    for (uint32_t i = 0; i < select_stmt->sem.column_indices.size(); i++) {
-      uint32_t col_idx = select_stmt->sem.column_indices[i];
-      data_type type = table->columns[col_idx].type;
-      result_column_widths.push(get_column_width(type));
-    }
-  }
-}
 
 void formatted_result_callback(typed_value *result, size_t count) {
   for (size_t i = 0; i < count; i++) {
-    int width =
-        (i < result_column_widths.size()) ? result_column_widths[i] : 15;
+    int width = get_column_width(result->type);
 
     switch (type_id(result[i].type)) {
     case TYPE_ID_U8:
@@ -162,7 +133,45 @@ void formatted_result_callback(typed_value *result, size_t count) {
     case TYPE_ID_CHAR:
     case TYPE_ID_VARCHAR: {
       const char *str = result[i].as_char();
-      printf("%-*s  ", width, str ? str : "NULL");
+      str = str ? str : "NULL";
+
+      // Extract the exact size from the type for CHAR types
+      int exact_size = 0;
+      switch (result[i].type) {
+      case TYPE_CHAR8:
+        exact_size = 8;
+        break;
+      case TYPE_CHAR16:
+        exact_size = 16;
+        break;
+      case TYPE_CHAR32:
+        exact_size = 32;
+        break;
+      case TYPE_CHAR64:
+        exact_size = 64;
+        break;
+      case TYPE_CHAR128:
+        exact_size = 128;
+        break;
+      case TYPE_CHAR256:
+        exact_size = 256;
+        break;
+      }
+
+      // Output exactly 'exact_size' bytes
+      int str_len = strlen(str);
+      if (str_len >= exact_size) {
+        // Truncate if needed
+        printf("%.*s  ", exact_size, str);
+      } else {
+        // Print string and pad with spaces
+        printf("%s", str);
+        for (int j = str_len; j < exact_size; j++) {
+          printf(" ");
+        }
+        printf("  ");
+      }
+    next_column:
       break;
     }
 
@@ -230,7 +239,6 @@ bool execute_sql_statements(const char *sql) {
 
     if (stmt->type == STMT_SELECT) {
       print_select_headers(&stmt->select_stmt);
-      setup_result_formatting(&stmt->select_stmt);
       vm_set_result_callback(formatted_result_callback);
     }
 
@@ -289,7 +297,6 @@ void run_meta_command(const char *cmd) {
     printf("  .demo_like            %LIKE% demo\n");
     printf("  .demo_group           grouping demo\n");
     printf("  .demo_join            join demo\n");
-    printf("  .demo_index           index demo\n");
 
     printf("\n");
     printf("Everything else is treated as SQL.\n");
@@ -400,7 +407,6 @@ int run_repl(const char *database_path) {
     printf("Creating new database: %s\n", database_path);
     bootstrap_master(true);
     create_all_tables_sql();
-    load_all_data_sql();
     printf("Database initialized with sample data.\n\n");
   } else {
     catalog_reload();
