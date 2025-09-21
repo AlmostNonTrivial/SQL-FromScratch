@@ -18,6 +18,7 @@ See the youtube video for a primer on the codebase: https://www.youtube.com/watc
 mkdir build && cd build
 cmake ..
 make
+```
 
 # Default database (relational_test.db)
 ./SqlFromScratch
@@ -30,9 +31,6 @@ make
 
 # Show help
 ./SqlFromScratch -h
-
-
-
 
 
 ## Architecture overview
@@ -127,7 +125,7 @@ make
                                  │
                                  ▼
 ┌──────────────────────────────────────────────────────────────────────────────┐
-│ LAYER 2: SYNTAX ANALYSIS (Abstract Syntax Tree)                              │ I
+│ LAYER 2: SYNTAX ANALYSIS (Abstract Syntax Tree)                              │
 ├──────────────────────────────────────────────────────────────────────────────┤
 │ SelectStmt {                                                                 │
 │   table_name: "users"                                                        │
