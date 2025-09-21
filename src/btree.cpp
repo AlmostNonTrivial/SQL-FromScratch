@@ -1,5 +1,5 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * B+Tree Storage
  *
@@ -1754,7 +1754,6 @@ validate_node_recursive(btree *tree, btree_node *node, uint32_t expected_parent,
 
 	return result;
 }
-
 static void
 print_key(btree *tree, void *key)
 {
@@ -1763,31 +1762,61 @@ print_key(btree *tree, void *key)
 		printf("NULL");
 		return;
 	}
-	type_print(tree->node_key_type, key);
+	// Use columns[0] type if schema provided, otherwise use tree's key type
+	data_type key_type =
+
+		 tree->node_key_type;
+	type_print(key_type, key);
+}
+
+static void
+print_record_columns(const uint8_t *record_data,
+                    array<data_type, query_arena> *columns,
+                    int start_col)
+{
+	printf("{");
+	uint32_t offset = 0;
+
+	for (int i = start_col; i < columns->size(); i++) {
+		if (i > start_col) printf(", ");
+
+		data_type col_type = (*columns)[i];
+		type_print(col_type, record_data + offset);
+		offset += type_size(col_type);
+	}
+	printf("}");
 }
 
 void
-bt_print(btree *tree)
+bt_print(btree *tree, array<data_type, query_arena> *columns)
 {
-
 	if (!tree || tree->root_page_index == 0)
 	{
 		printf("B+Tree: EMPTY\n");
 		return;
 	}
-
 	printf("====================================\n");
 	printf("B+Tree Structure\n");
 	printf("====================================\n");
 	printf("Root: page_%u\n", tree->root_page_index);
 	printf("Key type: %s, Record size: %u bytes\n", type_name(tree->node_key_type), tree->record_size);
+
+	// Show schema if provided
+	if (columns && columns->size() > 0) {
+		printf("Schema: [");
+		for (int i = 0; i < columns->size(); i++) {
+			if (i > 0) printf(", ");
+			printf("%s", type_name((*columns)[i]));
+		}
+		printf("]\n");
+	}
+
 	printf("Internal: max_keys=%u, min_keys=%u\n", tree->internal_max_keys, tree->internal_min_keys);
 	printf("Leaf: max_keys=%u, min_keys=%u\n", tree->leaf_max_keys, tree->leaf_min_keys);
 	printf("------------------------------------\n\n");
 
 	queue<uint32_t, query_arena> current_level;
 	queue<uint32_t, query_arena> next_level;
-
 	current_level.push(tree->root_page_index);
 	uint32_t depth = 0;
 
@@ -1795,19 +1824,16 @@ bt_print(btree *tree)
 	{
 		printf("LEVEL %u:\n", depth);
 		printf("--------\n");
-
 		while (!current_level.empty())
 		{
 			uint32_t page_index = *current_level.front();
 			current_level.pop();
-
 			btree_node *node = GET_NODE(page_index);
 			if (!node)
 			{
 				printf("  ERROR: Cannot read page %u\n", page_index);
 				continue;
 			}
-
 			printf("  Node[page_%u]:\n", node->index);
 			printf("    Type: %s\n", IS_LEAF(node) ? "LEAF" : "INTERNAL");
 			printf("    Parent: %s\n", IS_ROOT(node) ? "ROOT" : ("page_" + std::to_string(node->parent)).c_str());
@@ -1821,6 +1847,20 @@ bt_print(btree *tree)
 			}
 			printf("]\n");
 
+			// For leaf nodes with schema, show records
+			if (IS_LEAF(node) && tree->record_size > 0 && columns && columns->size() > 1)
+			{
+				printf("    Records:\n");
+				for (uint32_t i = 0; i < node->num_keys; i++)
+				{
+					printf("      ");
+					print_key(tree, GET_KEY_AT(node, i));
+					printf(" => ");
+					print_record_columns(GET_RECORD_AT(node, i), columns, 1);
+					printf("\n");
+				}
+			}
+
 			if (IS_INTERNAL(node))
 			{
 				uint32_t *children = GET_CHILDREN(node);
@@ -1830,14 +1870,12 @@ bt_print(btree *tree)
 					if (i > 0)
 						printf(", ");
 					printf("page_%u", children[i]);
-
 					next_level.push(children[i]);
 				}
 				printf("]\n");
 			}
 			else
 			{
-
 				printf("    Leaf chain: ");
 				if (node->previous != 0)
 				{
@@ -1858,10 +1896,8 @@ bt_print(btree *tree)
 				}
 				printf("\n");
 			}
-
 			printf("\n");
 		}
-
 		if (!next_level.empty())
 		{
 			std::swap(current_level, next_level);
@@ -1891,16 +1927,14 @@ bt_print(btree *tree)
 		if (leaf_count > 0)
 			printf(" -> ");
 		printf("page_%u", current->index);
-
 		if (++leaf_count > 1000)
 		{
 			printf("\n  ERROR: Possible cycle detected in leaf chain!\n");
 			break;
 		}
-
 		current = GET_NEXT(current);
 	}
 	printf("\n");
 	printf("  Total leaves: %u\n", leaf_count);
 	printf("====================================\n\n");
-} /*NOCOVER_END*/
+}

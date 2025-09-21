@@ -1,11 +1,12 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * B+Tree Storage
  */
 
 #pragma once
 
+#include "arena.hpp"
 #pragma once
 #include "types.hpp"
 #include <cstdint>
@@ -77,7 +78,7 @@ bt_cursorhas_previous(bt_cursor *cursor);
 void
 bt_validate(btree *tree);
 void
-bt_print(btree *tree);
+bt_print(btree *tree, array<data_type, query_arena>* columns = nullptr);
 /*
 
 

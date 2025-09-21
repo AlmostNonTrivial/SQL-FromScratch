@@ -1,5 +1,5 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * VM Bytecode Compiler
  *
@@ -12,28 +12,11 @@
  * parameters need to go where.
  *
  * This part of the project is the least developed: The VM is capable of doing
- * most query ops but the actual compilation those programs from an AST is quite
+ * most queries but the actual compilation those programs from an AST is quite
  * involved.
  *
  * The implementation can compile the subset of SQL specified in parser.hpp, but
  * in demo.hpp you can see hand-rolled programs that do more advanced queries.
- *
- * To loosely illstrate what a full compiler might do, take the following
- * example:
- *
- * 'SELECT * FROM users WHERE age > 30 AND user_id > 500;
- *
- * This would compile to a vastly different program depending on a few factors.
- *
- * Firstly, is there an index of age? If there is, should we first collect the
- * the rows where age > 30? Or because the users table is sorted by user_id,
- * would it be quicker to do SEEK GT and then scan until the end of the table?
- *
- * We can't answer what's best without data, like how big is the users table? If
- * it's large, then the SEEK GT basically degrades to a full-table scan, because
- * it will only skip a fraction of the table. Similarly what is the distribution
- * of ages? It might be that the vast majority of of users are 30 >, such that
- * the initial index lookup is pure overhead, that is, it has a low selectivity.
  *
  * The only 'optimization' that has been implemented, is that with selects, if
  * our expression involves a primary key, we do a seek, and if the op is '='
@@ -46,7 +29,6 @@
 #include "catalog.hpp"
 #include "common.hpp"
 #include "parser.hpp"
-#include "semantic.hpp"
 #include "types.hpp"
 #include "vm.hpp"
 #include <cstdint>

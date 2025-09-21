@@ -1,5 +1,5 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * Read Execute Print Loop
  */
@@ -16,6 +16,7 @@
 #include "tests/btree.hpp"
 #include "tests/ephemeral.hpp"
 #include "tests/pager.hpp"
+
 
 void
 print_usage(const char *program_name)

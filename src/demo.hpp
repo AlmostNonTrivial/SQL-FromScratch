@@ -1,13 +1,12 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * Demo Programs
  */
 
 #pragma once
 
-void
-load_all_data_sql();
+
 void
 create_all_tables_sql();
 void

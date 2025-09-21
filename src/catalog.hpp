@@ -1,5 +1,5 @@
 /*
-*  SQL From Scratch - Educational Database Engine
+*  SQL From Scratch
 *
 * Master Catalog (Schema Cache)
 *
@@ -76,7 +76,7 @@ struct relation
 	char		name[RELATION_NAME_MAX_SIZE];
 	typed_value next_key; // Next auto-increment value (supports various key types)
 
-	// Physical storage handle
+
 	union {
 		btree btree; // B+tree storage backend
 					 // could add other storage backends here, like a persistent hash table

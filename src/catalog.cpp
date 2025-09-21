@@ -1,5 +1,5 @@
 /*
- *  SQL From Scratch - Educational Database Engine
+ *  SQL From Scratch
  *
  * Master Catalog (Schema Cache)
  */

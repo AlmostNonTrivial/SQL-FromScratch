@@ -1,11 +1,12 @@
 
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * Ephemeral Tree
  */
 
 #pragma once
+#include "arena.hpp"
 #include "common.hpp"
 #include "types.hpp"
 #include <cstdint>
@@ -95,5 +96,6 @@ et_cursor_delete(et_cursor *cursor);
 
 void
 et_validate(const ephemeral_tree *tree);
+
 void
-et_print(const ephemeral_tree *tree);
+et_print(const ephemeral_tree *tree, array<data_type, query_arena> *columns  = nullptr);
