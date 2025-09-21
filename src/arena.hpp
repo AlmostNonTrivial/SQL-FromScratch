@@ -1,5 +1,5 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * Arena Allocator
  *
@@ -1186,8 +1186,6 @@ template <typename K, typename V, typename arena_tag = global_arena> struct hash
 	hash_map() = default;
 	hash_map(std::initializer_list<std::pair<K, V>> init)
 	{
-	    // hacky
-		arena<arena_tag>::init();
 		if (init.size() > 0)
 		{
 			reserve(init.size() * 2);

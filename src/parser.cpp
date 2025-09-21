@@ -1,5 +1,5 @@
 /*
- * SQL From Scratch - Educational Database Engine
+ * SQL From Scratch
  *
  * SQL Parser
  *
@@ -27,6 +27,7 @@
 #include <cstdio>
 #include <cstdarg>
 #include <string_view>
+#include <unordered_map>
 
 enum TOKEN_TYPE : uint8_t
 {
@@ -95,8 +96,12 @@ stmt_type_to_string(STMT_TYPE type)
 		return "UNKNOWN";
 	}
 }
-
-static hash_map<string_view, int32_t> sql_keywords = {
+/*
+ * select and SELECT are 1, such that keywords['select'] != keywords['Anything else']
+ * but keywords['SELECT'] does equal keywords['select']
+ *
+ */
+const static std::unordered_map<string_view, int32_t> sql_keywords = {
 	{"SELECT", 1},	  {"select", 1},	{"FROM", 2},   {"from", 2},	  {"WHERE", 3},	  {"where", 3},	  {"INSERT", 4},
 	{"insert", 4},	  {"INTO", 5},		{"into", 5},   {"VALUES", 6}, {"values", 6},  {"UPDATE", 7},  {"update", 7},
 	{"SET", 8},		  {"set", 8},		{"DELETE", 9}, {"delete", 9}, {"CREATE", 10}, {"create", 10}, {"TABLE", 11},
@@ -127,20 +132,20 @@ format_error(parser *p, const char *fmt, ...)
 static bool
 is_keyword(string_view text)
 {
-	return sql_keywords.contains(text);
+	return sql_keywords.find(text) != sql_keywords.end();
 }
 
 static bool
 is_keyword(string_view text, string_view keyword)
 {
-	auto a = sql_keywords.get(text);
-	auto b = sql_keywords.get(keyword);
-	if (!a || !b)
+	auto a = sql_keywords.find(text);
+	auto b = sql_keywords.find(keyword);
+	if (a == sql_keywords.end() || b == sql_keywords.end())
 	{
 		return false;
 	}
 
-	return *a == *b;
+	return a->second == b->second;
 }
 
 void
